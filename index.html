@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RC Transporte | Logística e Transporte para Empresas</title>
+  <meta name="description" content="Soluções em logística e transporte rodoviário, aéreo, Hot Line e logística reversa. Cobertura nacional. São Luís e Imperatriz - MA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #F47C20;
+      --orange-hot: #FF6B00;
+      --black: #0A0A0A;
+      --black-2: #111111;
+      --black-3: #1A1A1A;
+      --black-4: #222222;
+      --white: #FFFFFF;
+      --gray: #999999;
+      --gray-2: #666666;
+      --gray-light: #F5F5F5;
+      --line: rgba(255,255,255,0.08);
+      --line-dark: rgba(0,0,0,0.1);
+      --max: 1200px;
+      --r: 4px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .header.scrolled {
+      background: rgba(10,10,10,0.95);
+      border-bottom-color: var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    /* RC Logo SVG inline */
+    .brand-logo svg { width: 48px; height: 48px; }
+
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name strong {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .brand-name span {
+      font-size: 0.72rem;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      height: 44px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn-orange:hover { background: var(--orange-hot); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover { border-color: var(--white); }
+
+    .btn-ghost {
+      background: var(--black-4);
+      color: var(--white);
+    }
+    .btn-ghost:hover { background: var(--black-3); }
+
+    .menu-toggle {
+      display: none;
+      background: var(--black-4);
+      border: none;
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: all .25s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.85) 60%, var(--black) 100%),
+        url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    /* Orange diagonal accent */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(244,124,32,0.12) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow-line {
+      width: 32px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .hero-eyebrow span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      max-width: 900px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 580px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 64px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      max-width: 720px;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.03);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-stat strong {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--orange);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-stat span {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--orange);
+      overflow: hidden;
+      padding: 14px 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 32px;
+      white-space: nowrap;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.7);
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 100px 0; }
+    .section-sm { padding: 70px 0; }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .label-line {
+      width: 24px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .label span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 0.94;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .h2 em { font-style: normal; color: var(--orange); }
+
+    .lead {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    /* ── SOBRE ── */
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .sobre-img {
+      position: relative;
+    }
+
+    .sobre-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+
+    .sobre-img-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--orange);
+      color: var(--white);
+      padding: 24px;
+      min-width: 160px;
+    }
+
+    .sobre-img-badge strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .sobre-img-badge span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+    }
+
+    .sobre-copy { display: flex; flex-direction: column; gap: 28px; }
+
+    .sobre-copy p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .sobre-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .sobre-item {
+      background: var(--black-2);
+      padding: 20px;
+    }
+
+    .sobre-item strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+
+    .sobre-item span {
+      font-size: 0.88rem;
+      color: var(--gray);
+    }
+
+    /* ── SERVIÇOS ── */
+    .servicos-section {
+      background: var(--black-2);
+    }
+
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 60px;
+    }
+
+    .servico-card {
+      background: var(--black-2);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: background .25s;
+    }
+
+    .servico-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .servico-card:hover { background: var(--black-3); }
+    .servico-card:hover::before { transform: scaleX(1); }
+
+    .servico-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      text-transform: uppercase;
+    }
+
+    .servico-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .servico-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .servico-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .servico-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      background: rgba(244,124,32,0.12);
+      color: var(--orange);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    /* ── DIFERENCIAIS / LICENÇAS ── */
+    .dif-section {
+      background: var(--black);
+    }
+
+    .dif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .licencas-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .licenca-item {
+      background: var(--black-2);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: background .2s;
+    }
+
+    .licenca-item:hover { background: var(--black-3); }
+
+    .licenca-badge {
+      width: 44px;
+      height: 44px;
+      background: rgba(244,124,32,0.12);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .licenca-badge span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--orange);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .licenca-info strong {
+      display: block;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .licenca-info span {
+      font-size: 0.82rem;
+      color: var(--gray);
+    }
+
+    .dif-right {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .dif-item {
+      padding: 28px;
+      border-left: 3px solid var(--orange);
+      background: var(--black-2);
+    }
+
+    .dif-item h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .dif-item p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── SEGMENTOS ── */
+    .segmentos-section { background: var(--black-2); }
+
+    .segmentos-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 60px;
+    }
+
+    .segmento-item {
+      background: var(--black-2);
+      padding: 32px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: background .2s;
+    }
+
+    .segmento-item:hover { background: var(--black-3); }
+
+    .segmento-icon {
+      font-size: 2rem;
+    }
+
+    .segmento-item span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ── UNIDADES ── */
+    .unidades-section { background: var(--black); }
+
+    .unidades-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 60px;
+    }
+
+    .unidade-card {
+      background: var(--black-2);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unidade-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+    }
+
+    .unidade-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .unidade-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .unidade-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .unidade-info-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .unidade-info-row .ico {
+      color: var(--orange);
+      font-size: 0.9rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .unidade-info-row span {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--orange);
+      padding: 80px 0;
+    }
+
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--white);
+      max-width: 700px;
+    }
+
+    .cta-band h2 em {
+      font-style: normal;
+      color: rgba(0,0,0,0.35);
+    }
+
+    .cta-actions-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-black {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+    }
+
+    .btn-black:hover { background: var(--black-3); }
+
+    .btn-white-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .btn-white-outline:hover { border-color: var(--white); }
+
+    /* ── CONTATO ── */
+    .contato-section { background: var(--black-2); }
+
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .contato-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .contato-item {
+      background: var(--black-3);
+      padding: 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .contato-ico {
+      width: 44px;
+      height: 44px;
+      background: var(--orange);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .contato-item strong {
+      display: block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+
+    .contato-item a, .contato-item p {
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .contato-item a:hover { color: var(--orange); }
+
+    /* Quote Form */
+    .quote-form-wrap {
+      background: var(--black-4);
+      padding: 36px;
+    }
+
+    .quote-form-wrap h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .quote-form-wrap > p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--black-2);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 0.93rem;
+      transition: border-color .2s;
+      width: 100%;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+
+    .field select option { background: var(--black-2); }
+
+    .field textarea { min-height: 100px; resize: vertical; }
+
+    .form-note {
+      grid-column: 1 / -1;
+      font-size: 0.8rem;
+      color: var(--gray-2);
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+    }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .success-msg {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 14px;
+      background: rgba(30,120,60,0.15);
+      border: 1px solid rgba(30,120,60,0.4);
+      color: #5edb8a;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--black); }
+
+    .faq-list {
+      max-width: 800px;
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .faq-item { background: var(--black-2); }
+
+    .faq-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      text-align: left;
+      padding: 22px 24px;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .faq-btn:hover { background: var(--black-3); }
+
+    .faq-btn .ico {
+      color: var(--orange);
+      font-size: 1.3rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform .25s;
+    }
+
+    .faq-item.active .faq-btn .ico { transform: rotate(45deg); }
+
+    .faq-body {
+      display: none;
+      padding: 0 24px 22px;
+      color: var(--gray);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-body { display: block; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--black);
+      border-top: 1px solid var(--line);
+      padding: 60px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--gray-2);
+      margin-top: 16px;
+      line-height: 1.65;
+      max-width: 280px;
+    }
+
+    .footer h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer ul li a,
+    .footer ul li span {
+      font-size: 0.88rem;
+      color: var(--gray-2);
+      transition: color .2s;
+    }
+
+    .footer ul li a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-bottom span {
+      font-size: 0.82rem;
+      color: var(--gray-2);
+    }
+
+    .footer-bottom .orange { color: var(--orange); }
+
+    /* ── FLOATING WA ── */
+    .float-wa {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 90;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+      transition: transform .2s;
+    }
+
+    .float-wa:hover { transform: scale(1.08); }
+
+    .float-wa svg { width: 26px; height: 26px; }
+
+    /* ── MOBILE BAR ── */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 89;
+      background: rgba(10,10,10,0.96);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mobile-bar .btn { justify-content: center; font-size: 0.85rem; height: 46px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-box {
+      width: min(100%, 700px);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--black-2);
+      border: 1px solid var(--line);
+      padding: 36px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .modal-head h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      background: var(--black-4);
+      border: none;
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .segmentos-grid { grid-template-columns: repeat(3, 1fr); }
+      .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+      .dif-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-actions .btn-outline { display: none; }
+      .menu-toggle { display: flex; }
+      .hero h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .servicos-grid { grid-template-columns: 1fr; }
+      .segmentos-grid { grid-template-columns: repeat(2, 1fr); }
+      .unidades-grid { grid-template-columns: 1fr; }
+      .cta-inner { grid-template-columns: 1fr; }
+      .cta-actions-wrap { flex-direction: row; flex-wrap: wrap; }
+      .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .mobile-bar { display: grid; }
+      .float-wa { bottom: 84px; }
+      .section { padding: 70px 0; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .segmentos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Nav mobile open */
+    .nav.open .nav-links {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 80px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.98);
+      padding: 40px 20px;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+
+    .nav.open .nav-links a {
+      font-size: 1.8rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav" id="nav">
+      <a href="#inicio" class="brand">
+        <!-- RC Logo inline SVG based on their visual identity -->
+        <div class="brand-logo">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" fill="#1A1A1A" stroke="#F47C20" stroke-width="1.5"/>
+            <text x="24" y="30" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="18" fill="white" text-anchor="middle" letter-spacing="1">RC</text>
+            <path d="M8 38 Q24 42 40 38" stroke="#F47C20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-name">
+          <strong>RC Transporte</strong>
+          <span>Logística &amp; Transporte</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#sobre">Empresa</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#segmentos">Segmentos</a>
+        <a href="#unidades">Unidades</a>
+        <a href="#contato">Contato</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="#contato">Cotação</a>
+        <a class="btn btn-orange" href="https://wa.me/5598985177557" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Cobertura Nacional · São Luís &amp; Imperatriz</span>
+    </div>
+    <h1>Sua carga<br>no <em>destino certo.</em><br>No prazo.</h1>
+    <p class="hero-sub">
+      Soluções em logística e transporte para empresas que precisam de agilidade, segurança e atendimento profissional. 6 anos de operação no Brasil.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-orange" href="#contato">Solicitar cotação</a>
+      <button class="btn btn-ghost js-modal">Cotação rápida</button>
+      <a class="btn btn-outline" href="https://wa.me/5598985177557" target="_blank" rel="noopener">Falar com a equipe</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <strong>6</strong>
+        <span>Anos de operação</span>
+      </div>
+      <div class="hero-stat">
+        <strong>2</strong>
+        <span>Unidades no MA</span>
+      </div>
+      <div class="hero-stat">
+        <strong>BR</strong>
+        <span>Cobertura nacional</span>
+      </div>
+      <div class="hero-stat">
+        <strong>24h</strong>
+        <span>Rastreamento</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item"><span>Transporte Rodoviário</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Transporte Aéreo</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Hot Line</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Logística Reversa</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Carga Dedicada</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Carga Fracionada</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>ANVISA Autorizado</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Rastreamento em Tempo Real</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Transporte Rodoviário</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Transporte Aéreo</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Hot Line</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Logística Reversa</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Carga Dedicada</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Carga Fracionada</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>ANVISA Autorizado</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Rastreamento em Tempo Real</span><div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="section" id="sobre">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>A RC Transporte</span>
+    </div>
+    <h2 class="h2 reveal">Uma operação logística<br>construída com <em>estrutura real.</em></h2>
+    <div class="sobre-grid reveal">
+      <div class="sobre-img">
+        <img
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+          alt="Operação logística RC Transporte"
+          class="sobre-img-main"
+        />
+        <div class="sobre-img-badge">
+          <strong>6</strong>
+          <span>Anos de<br>mercado</span>
+        </div>
+      </div>
+      <div class="sobre-copy">
+        <p>
+          A RC Transporte opera desde 2019 com foco em soluções logísticas para empresas que precisam de resposta rápida, rastreabilidade e atendimento profissional. Da carga rotineira à urgência crítica, nossa estrutura está preparada para atender com consistência.
+        </p>
+        <p>
+          Com matriz em São Luís e filial estratégica em Imperatriz — porta de entrada para o sul do Maranhão — recebemos cargas de todo o Brasil e distribuímos em todo o Maranhão com segurança e organização.
+        </p>
+        <div class="sobre-items">
+          <div class="sobre-item">
+            <strong>Missão</strong>
+            <span>Atender operações logísticas com agilidade, responsabilidade e segurança.</span>
+          </div>
+          <div class="sobre-item">
+            <strong>Visão</strong>
+            <span>Ser referência em transporte para empresas que precisam de confiança e resposta operacional.</span>
+          </div>
+          <div class="sobre-item">
+            <strong>Compromisso</strong>
+            <span>Atendimento profissional, acompanhamento da operação e mais previsibilidade para o cliente.</span>
+          </div>
+          <div class="sobre-item">
+            <strong>Tecnologia</strong>
+            <span>Sistema Brudam integrado com rastreamento em tempo real para o cliente acompanhar a carga.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="section servicos-section" id="servicos">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Serviços</span>
+    </div>
+    <h2 class="h2 reveal">Soluções para cada<br>necessidade <em>de operação.</em></h2>
+    <p class="lead reveal">A RC atua com serviços pensados para empresas que precisam de prazo, flexibilidade, segurança e atendimento profissional.</p>
+
+    <div class="servicos-grid reveal">
+      <div class="servico-card">
+        <div class="servico-num">01</div>
+        <div class="servico-icon">🚚</div>
+        <h3>Transporte Rodoviário</h3>
+        <p>Operação para cargas dedicadas e fracionadas. Recebemos do Brasil inteiro e distribuímos em todo o Maranhão com agilidade e controle.</p>
+        <div class="servico-tag">Dedicado &amp; Fracionado</div>
+      </div>
+      <div class="servico-card">
+        <div class="servico-num">02</div>
+        <div class="servico-icon">✈️</div>
+        <h3>Transporte Aéreo</h3>
+        <p>Agilidade máxima para longas distâncias. Ideal para demandas que exigem resposta rápida e não podem aguardar transporte rodoviário.</p>
+        <div class="servico-tag">Alta Velocidade</div>
+      </div>
+      <div class="servico-card">
+        <div class="servico-num">03</div>
+        <div class="servico-icon">⚡</div>
+        <h3>Hot Line</h3>
+        <p>Serviço de urgência extrema para quando a empresa não pode parar. Alta margem de resposta, ideal para linhas de produção críticas.</p>
+        <div class="servico-tag">Urgência Crítica</div>
+      </div>
+      <div class="servico-card">
+        <div class="servico-num">04</div>
+        <div class="servico-icon">🔄</div>
+        <h3>Logística Reversa</h3>
+        <p>Fluxo de retorno de mercadorias para e-commerce, distribuidores e operações comerciais com controle e rastreabilidade.</p>
+        <div class="servico-tag">E-commerce &amp; Varejo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS + LICENÇAS -->
+<section class="section dif-section" id="diferenciais">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Licenças &amp; Diferenciais</span>
+    </div>
+    <h2 class="h2 reveal">Autorização para operar<br>onde <em>poucos podem.</em></h2>
+    <p class="lead reveal">As licenças da RC são o maior diferencial competitivo para captação de clientes B2B de alto padrão técnico e regulatório.</p>
+
+    <div class="dif-grid reveal">
+      <div>
+        <div class="licencas-list">
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>ANVISA</span></div>
+            <div class="licenca-info">
+              <strong>ANVISA</strong>
+              <span>Agência Nacional de Vigilância Sanitária — transporte de medicamentos e insumos</span>
+            </div>
+          </div>
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>CRF</span></div>
+            <div class="licenca-info">
+              <strong>CRF</strong>
+              <span>Conselho Regional de Farmácia — operações farmacêuticas e correlatos</span>
+            </div>
+          </div>
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>VISA</span></div>
+            <div class="licenca-info">
+              <strong>Vigilância Sanitária</strong>
+              <span>Autorização para cargas com rigor sanitário e fiscalização especial</span>
+            </div>
+          </div>
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>CB</span></div>
+            <div class="licenca-info">
+              <strong>Corpo de Bombeiros</strong>
+              <span>Habilitação para transporte de cargas que exigem controle de segurança</span>
+            </div>
+          </div>
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>ANTT</span></div>
+            <div class="licenca-info">
+              <strong>ANTT</strong>
+              <span>Agência Nacional de Transportes Terrestres — operação regular e homologada</span>
+            </div>
+          </div>
+          <div class="licenca-item">
+            <div class="licenca-badge"><span>FD</span></div>
+            <div class="licenca-info">
+              <strong>Fiel Depositário</strong>
+              <span>Atributo de confiança jurídica e fiscal — garantia para operações de alto valor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dif-right">
+        <div class="dif-item">
+          <h4>🌎 Cobertura Nacional</h4>
+          <p>Recebemos cargas de todo o Brasil e distribuímos em todo o Maranhão, com base operacional estratégica em São Luís e Imperatriz.</p>
+        </div>
+        <div class="dif-item">
+          <h4>🛰 Rastreamento em Tempo Real</h4>
+          <p>Monitoramento via sistema Brudam integrado ao site. O cliente acompanha a carga de forma autônoma, sem depender do WhatsApp.</p>
+        </div>
+        <div class="dif-item">
+          <h4>⚡ Atendimento Ágil</h4>
+          <p>Resposta rápida para apoiar a tomada de decisão. Estrutura preparada para rotina e para urgências críticas.</p>
+        </div>
+        <div class="dif-item">
+          <h4>🏭 Estrutura Física Real</h4>
+          <p>Presença operacional com infraestrutura própria em São Luís e Imperatriz, atendendo demandas de diferentes volumes e complexidades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTOS -->
+<section class="section segmentos-section" id="segmentos">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Segmentos de Atuação</span>
+    </div>
+    <h2 class="h2 reveal">Experiência comprovada<br>nos <em>setores que exigem mais.</em></h2>
+    <div class="segmentos-grid reveal">
+      <div class="segmento-item">
+        <div class="segmento-icon">💊</div>
+        <span>Farmacêutico &amp; Saúde</span>
+      </div>
+      <div class="segmento-item">
+        <div class="segmento-icon">📱</div>
+        <span>Eletrônicos</span>
+      </div>
+      <div class="segmento-item">
+        <div class="segmento-icon">👕</div>
+        <span>Vestuário &amp; Moda</span>
+      </div>
+      <div class="segmento-item">
+        <div class="segmento-icon">🛒</div>
+        <span>E-commerce</span>
+      </div>
+      <div class="segmento-item">
+        <div class="segmento-icon">🎪</div>
+        <span>Feiras &amp; Eventos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIDADES -->
+<section class="section unidades-section" id="unidades">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Nossas Unidades</span>
+    </div>
+    <h2 class="h2 reveal">Presença estratégica<br>no <em>Maranhão.</em></h2>
+    <div class="unidades-grid reveal">
+      <div class="unidade-card">
+        <div class="unidade-tag">Matriz</div>
+        <h3>São Luís — MA</h3>
+        <div class="unidade-info">
+          <div class="unidade-info-row">
+            <span class="ico">📍</span>
+            <span>Av. dos Franceses, 13, Tirirical<br>São Luís – MA, CEP: 65055-085</span>
+          </div>
+          <div class="unidade-info-row">
+            <span class="ico">📞</span>
+            <span>
+              <a href="tel:+559833032536">(98) 3303-2536</a> &nbsp;|&nbsp;
+              <a href="tel:+5598985224098">(98) 98522-4098</a>
+            </span>
+          </div>
+          <div class="unidade-info-row">
+            <span class="ico">✉️</span>
+            <span><a href="mailto:custos@rctransporte.com.br">custos@rctransporte.com.br</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="unidade-card">
+        <div class="unidade-tag">Filial</div>
+        <h3>Imperatriz — MA</h3>
+        <div class="unidade-info">
+          <div class="unidade-info-row">
+            <span class="ico">📍</span>
+            <span>Av. Moacir Campos Milhomem<br>Residencial Colina Park, CEP: 65902-000</span>
+          </div>
+          <div class="unidade-info-row">
+            <span class="ico">🔑</span>
+            <span>Ponto estratégico para escoamento no sul do MA, Tocantins e malha rodoviária central</span>
+          </div>
+          <div class="unidade-info-row">
+            <span class="ico">📞</span>
+            <span><a href="tel:+5598985177557">(98) 98517-7557</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div>
+        <h2>Pronto para mover<br>sua operação <em>com a RC?</em></h2>
+      </div>
+      <div class="cta-actions-wrap">
+        <a class="btn btn-black" href="https://wa.me/5598985177557" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn btn-white-outline js-modal">Cotação rápida</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section contato-section" id="contato">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Entre em Contato</span>
+    </div>
+    <h2 class="h2 reveal">Fale com a equipe<br>da <em>RC Transporte.</em></h2>
+
+    <div class="contato-grid reveal">
+      <div>
+        <div class="contato-items">
+          <div class="contato-item">
+            <div class="contato-ico">📞</div>
+            <div>
+              <strong>Telefone / WhatsApp</strong>
+              <a href="tel:+5598985177557">(98) 98517-7557</a><br>
+              <a href="tel:+5598985224098">(98) 98522-4098</a><br>
+              <a href="tel:+559833032536">(98) 3303-2536</a>
+            </div>
+          </div>
+          <div class="contato-item">
+            <div class="contato-ico">✉️</div>
+            <div>
+              <strong>E-mail</strong>
+              <a href="mailto:custos@rctransporte.com.br">custos@rctransporte.com.br</a><br>
+              <a href="mailto:paulocavalcante@rctransporte.log.br">paulocavalcante@rctransporte.log.br</a>
+            </div>
+          </div>
+          <div class="contato-item">
+            <div class="contato-ico">📍</div>
+            <div>
+              <strong>Endereço — Matriz</strong>
+              <p>Av. dos Franceses, 13, Tirirical — São Luís, MA</p>
+            </div>
+          </div>
+          <div class="contato-item">
+            <div class="contato-ico">📍</div>
+            <div>
+              <strong>Endereço — Filial</strong>
+              <p>Av. Moacir Campos Milhomem — Imperatriz, MA</p>
+            </div>
+          </div>
+          <div class="contato-item">
+            <div class="contato-ico">📱</div>
+            <div>
+              <strong>Redes Sociais</strong>
+              <a href="https://instagram.com/rctransporte_oficial" target="_blank" rel="noopener">@rctransporte_oficial</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-form-wrap" id="contatoForm">
+        <h3>Cotação rápida</h3>
+        <p>Preencha o formulário e enviamos sua solicitação por WhatsApp com os dados já organizados.</p>
+        <div class="form-grid" id="quoteFormInline">
+          <div class="field">
+            <label>Nome *</label>
+            <input type="text" id="qi-nome" required placeholder="Seu nome" />
+          </div>
+          <div class="field">
+            <label>Empresa</label>
+            <input type="text" id="qi-empresa" placeholder="Nome da empresa" />
+          </div>
+          <div class="field">
+            <label>Telefone *</label>
+            <input type="text" id="qi-tel" required placeholder="(00) 00000-0000" />
+          </div>
+          <div class="field">
+            <label>E-mail</label>
+            <input type="email" id="qi-email" placeholder="seu@email.com" />
+          </div>
+          <div class="field">
+            <label>Origem</label>
+            <input type="text" id="qi-origem" placeholder="Cidade de origem" />
+          </div>
+          <div class="field">
+            <label>Destino</label>
+            <input type="text" id="qi-destino" placeholder="Cidade de destino" />
+          </div>
+          <div class="field">
+            <label>Serviço</label>
+            <select id="qi-servico">
+              <option value="Rodoviário">Rodoviário</option>
+              <option value="Aéreo">Aéreo</option>
+              <option value="Hot Line">Hot Line</option>
+              <option value="Logística Reversa">Logística Reversa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Urgência</label>
+            <select id="qi-urgencia">
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Alta">Alta</option>
+              <option value="Urgente">Urgente</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Detalhes</label>
+            <textarea id="qi-msg" placeholder="Tipo de carga, prazo, necessidade específica..."></textarea>
+          </div>
+
+          <div class="success-msg" id="qi-success">✔ Mensagem pronta. Você será direcionado ao WhatsApp.</div>
+          <div class="form-actions">
+            <button class="btn btn-orange" onclick="submitQuote('qi')">Enviar pelo WhatsApp</button>
+            <button class="btn btn-ghost" onclick="clearQuote('qi')">Limpar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="container">
+    <div class="label reveal">
+      <div class="label-line"></div>
+      <span>Perguntas Frequentes</span>
+    </div>
+    <h2 class="h2 reveal">Dúvidas comuns<br>sobre a <em>operação.</em></h2>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span>A RC Transporte atende todo o Maranhão?</span>
+          <span class="ico">+</span>
+        </button>
+        <div class="faq-body">Sim. Recebemos cargas de todo o Brasil e distribuímos em todo o Maranhão. Com base em São Luís (matriz) e Imperatriz (filial), cobrimos o estado com agilidade e estrutura própria.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span>Vocês transportam medicamentos e produtos farmacêuticos?</span>
+          <span class="ico">+</span>
+        </button>
+        <div class="faq-body">Sim. A RC possui autorização ANVISA, CRF e Vigilância Sanitária para transporte de medicamentos, insumos farmacêuticos e correlatos. É um dos nossos principais diferenciais.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span>O que é o serviço Hot Line e quando devo usar?</span>
+          <span class="ico">+</span>
+        </button>
+        <div class="faq-body">Hot Line é nosso serviço de urgência extrema — para situações em que a empresa não pode parar. Ideal para linhas de produção, insumos críticos e demandas que não admitem atraso. Tem prioridade máxima na operação.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span>Como posso rastrear minha carga?</span>
+          <span class="ico">+</span>
+        </button>
+        <div class="faq-body">Trabalhamos com sistema Brudam integrado que permite rastreamento em tempo real. O cliente acompanha o status da carga de forma autônoma, sem precisar entrar em contato via WhatsApp.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn">
+          <span>Como solicitar uma cotação?</span>
+          <span class="ico">+</span>
+        </button>
+        <div class="faq-body">Você pode usar o formulário de cotação rápida nesta página, entrar em contato via WhatsApp nos números (98) 98517-7557 ou (98) 98522-4098, ou enviar e-mail para custos@rctransporte.com.br.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <div class="brand-logo">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="23" fill="#1A1A1A" stroke="#F47C20" stroke-width="1.5"/>
+              <text x="24" y="30" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="18" fill="white" text-anchor="middle" letter-spacing="1">RC</text>
+              <path d="M8 38 Q24 42 40 38" stroke="#F47C20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="brand-name">
+            <strong>RC Transporte</strong>
+            <span>Logística &amp; Transporte</span>
+          </div>
+        </div>
+        <p>Recebemos cargas de todo o Brasil e distribuímos em todo o Maranhão. Operação própria em São Luís e Imperatriz.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Empresa</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#segmentos">Segmentos</a></li>
+          <li><a href="#unidades">Unidades</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Serviços</h4>
+        <ul>
+          <li><span>Transporte Rodoviário</span></li>
+          <li><span>Transporte Aéreo</span></li>
+          <li><span>Hot Line</span></li>
+          <li><span>Logística Reversa</span></li>
+          <li><span>Carga Dedicada</span></li>
+          <li><span>Carga Fracionada</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+559833032536">(98) 3303-2536</a></li>
+          <li><a href="tel:+5598985177557">(98) 98517-7557</a></li>
+          <li><a href="mailto:custos@rctransporte.com.br">custos@rctransporte.com.br</a></li>
+          <li><a href="https://instagram.com/rctransporte_oficial" target="_blank">@rctransporte_oficial</a></li>
+          <li><span>São Luís – MA</span></li>
+          <li><span>Imperatriz – MA</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>RC Transporte © 2026 — Todos os direitos reservados.</span>
+      <span class="orange">Reis Cavalcante Transporte e Logística</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="float-wa" href="https://wa.me/5598985177557?text=Olá,%20vim%20pelo%20site%20da%20RC%20Transporte%20e%20gostaria%20de%20uma%20cotação." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.484 2.003 2.003 6.484 2.003 12.004c0 1.773.468 3.484 1.355 4.99L2 22l5.137-1.34a9.951 9.951 0 004.867 1.268h.003c5.519 0 9.999-4.48 9.999-9.999 0-5.52-4.48-9.926-10.002-9.926z"/></svg>
+</a>
+
+<!-- MOBILE BAR -->
+<div class="mobile-bar" id="mobileBar">
+  <button class="btn btn-ghost js-modal">Cotação rápida</button>
+  <a class="btn btn-orange" href="https://wa.me/5598985177557" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<!-- MODAL COTAÇÃO -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3>Cotação Rápida</h3>
+        <p style="color:var(--gray);font-size:.88rem;margin-top:4px;">Preencha os dados. Sua solicitação vai para o WhatsApp da RC já formatada.</p>
+      </div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="form-grid" id="modalForm">
+      <div class="field">
+        <label>Nome *</label>
+        <input type="text" id="m-nome" required placeholder="Seu nome" />
+      </div>
+      <div class="field">
+        <label>Empresa</label>
+        <input type="text" id="m-empresa" placeholder="Nome da empresa" />
+      </div>
+      <div class="field">
+        <label>Telefone *</label>
+        <input type="text" id="m-tel" required placeholder="(00) 00000-0000" />
+      </div>
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="m-email" placeholder="seu@email.com" />
+      </div>
+      <div class="field">
+        <label>Origem</label>
+        <input type="text" id="m-origem" placeholder="Cidade de origem" />
+      </div>
+      <div class="field">
+        <label>Destino</label>
+        <input type="text" id="m-destino" placeholder="Cidade de destino" />
+      </div>
+      <div class="field">
+        <label>Serviço</label>
+        <select id="m-servico">
+          <option value="Rodoviário">Rodoviário</option>
+          <option value="Aéreo">Aéreo</option>
+          <option value="Hot Line">Hot Line</option>
+          <option value="Logística Reversa">Logística Reversa</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Urgência</label>
+        <select id="m-urgencia">
+          <option value="Baixa">Baixa</option>
+          <option value="Média">Média</option>
+          <option value="Alta">Alta</option>
+          <option value="Urgente">Urgente</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Detalhes</label>
+        <textarea id="m-msg" placeholder="Tipo de carga, prazo, necessidade específica..."></textarea>
+      </div>
+
+      <div class="success-msg" id="m-success">✔ Mensagem pronta. Você será direcionado ao WhatsApp.</div>
+      <div class="form-actions">
+        <button class="btn btn-orange" onclick="submitQuote('m')">Enviar pelo WhatsApp</button>
+        <button class="btn btn-ghost" onclick="clearQuote('m')">Limpar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Header scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('nav');
+  menuToggle && menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  nav && document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('open'));
+  });
+
+  // Modal
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('modalClose');
+
+  document.querySelectorAll('.js-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    });
+  });
+
+  modalClose && modalClose.addEventListener('click', closeModal);
+  modal && modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  }
+
+  // FAQ
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.classList.toggle('active');
+    });
+  });
+
+  // Reveal
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+
+  // Quote form
+  function submitQuote(prefix) {
+    const nome = (document.getElementById(prefix + '-nome')?.value || '').trim();
+    const tel = (document.getElementById(prefix + '-tel')?.value || '').trim();
+
+    if (!nome || !tel) {
+      alert('Preencha pelo menos nome e telefone.');
+      return;
+    }
+
+    const linhas = [
+      'Olá, vim pelo site da RC Transporte e gostaria de solicitar uma cotação.',
+      '',
+      `Nome: ${nome}`,
+      `Empresa: ${document.getElementById(prefix + '-empresa')?.value || '-'}`,
+      `Telefone: ${tel}`,
+      `E-mail: ${document.getElementById(prefix + '-email')?.value || '-'}`,
+      `Origem: ${document.getElementById(prefix + '-origem')?.value || '-'}`,
+      `Destino: ${document.getElementById(prefix + '-destino')?.value || '-'}`,
+      `Serviço: ${document.getElementById(prefix + '-servico')?.value || '-'}`,
+      `Urgência: ${document.getElementById(prefix + '-urgencia')?.value || '-'}`,
+      `Detalhes: ${document.getElementById(prefix + '-msg')?.value || '-'}`,
+    ];
+
+    const successEl = document.getElementById(prefix + '-success');
+    if (successEl) successEl.style.display = 'block';
+
+    setTimeout(() => {
+      window.open(`https://wa.me/5598985177557?text=${encodeURIComponent(linhas.join('\n'))}`, '_blank');
+    }, 300);
+  }
+
+  function clearQuote(prefix) {
+    ['nome','empresa','tel','email','origem','destino','msg'].forEach(f => {
+      const el = document.getElementById(prefix + '-' + f);
+      if (el) el.value = '';
+    });
+    const successEl = document.getElementById(prefix + '-success');
+    if (successEl) successEl.style.display = 'none';
+  }
+</script>
+</body>
+</html>
